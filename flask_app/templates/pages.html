@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+    crossorigin="anonymous">
+    <title>Page</title>
+
+</head>
+<style>
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    .nav-bar{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        margin-top: 2rem;
+        margin-bottom: 4rem;
+    }
+    .logout{
+        display: flex;
+        justify-content: flex-end;
+        border: 2px solid black;
+        margin: 2rem;
+    }
+    .member-post{
+        padding: 1rem;
+    }
+    #main{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+</style>
+<body>
+    <div class="nav-bar">
+        <div>
+            <h1 class="heading"> Pages.Co</h1>
+        </div>
+    </div>
+    <div class="logout">
+        <a href="/logout" class="btn btn-danger">Logout</a>
+
+    </div>
+    <div class="d-flex justify-content-center" id="main">
+        {% with messages = get_flashed_messages()  %}
+            {% if messages %}
+                {% for message in messages  %}
+                    <p class="text-danger">{{ message }}</p>
+                    
+                {% endfor %}
+                
+            {% endif %}
+            
+        {% endwith %}
+        <form action=""  >
+            <h1 class="member-post">Memebers post.</h1>
+            
+            
+            <textarea name="content" id="" cols="100" rows="2"  class="p-2" placeholder="Enter text here"></textarea>
+            <input type="hidden" name="user_id" value="{{user.id}}">
+            <div>
+                <input class="btn btn-dark" type="submit" value="Done">
+                
+            </div>
+        </form>
+        <hr>
+        
+        <hr>
+        <div>
+            
+            <h3>Posts From All Members</h3>
+            {% for post in posts:  %}
+            <p><em class="text-primary">{{ post.user.first_name[0]|upper }}{{ post.user.first_name[1:] }}</em>-paged: </p>
+            <p>{{ post.content }}</p>
+            <p>{{post.created_at.strftime("%b %d")}}</p>
+            {% if user.id == post.user.id %}
+            <a href="/posts/delete/{{post.id}}" class="btn btn-danger btn-sm">Remove</a>
+                
+            {% endif %}
+                
+            {% endfor %}
+            <hr>
+            <hr>
+        </div>
+       
+    <div>
+    
+</body>
+</html>

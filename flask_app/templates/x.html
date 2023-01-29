@@ -1,0 +1,14 @@
+<div>
+    <h3>Posts From All Members</h3>
+    {% for post in posts  %}
+    <p><em>{{ post.user.first_name }}:{{post.created_at.strftime("%b %d")}}</em></p>
+    <p>{{ post.content }}</p>
+    {% if post.user.id == user.id %}
+    <a href="/posts/delete/{{post.id}}" class="btn btn-danger">Remove</a>
+        
+    {% endif %}
+        
+    {% endfor %}
+    <hr>
+    <hr>
+</div>
